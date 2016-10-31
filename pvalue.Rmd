@@ -1,0 +1,39 @@
+---
+title: "P Value"
+output:
+  html_document: default
+  html_notebook: default
+---
+
+```{r, echo=FALSE, message=FALSE}
+library(reshape2)
+library(gplots)
+library(ggplot2)
+xpapp=read.csv('D:/ABtest/xpapp.csv',header=T)
+str(xpapp)
+summary(xpapp)
+xpapp$d=as.Date(as.character(xpapp$d))
+qqnorm(xpapp$Treatment-xpapp$Control)
+qqnorm(xpapp$Treatment)
+shapiro.test(xpapp$Treatment-xpapp$Control)
+shapiro.test(xpapp$Treatment)
+xpapp1=subset(xpapp,d>='2016-09-14'&d<='2016-09-23')
+xpapp2=melt(xpapp,id.vars='d',variable.name='Version',value.name = 'Income')
+t.test(xpapp$Control,xpapp$Treatment,var.equal = FALSE,alternative="two.sided")
+t.test(xpapp1$Control,xpapp1$Treatment,var.equal = FALSE,alternative="two.sided")
+wilcox.test(xpapp1$Control,xpapp1$Treatment,var.equal = FALSE,alternative="two.sided")
+wilcox.test(xpapp$Control,xpapp$Treatment,var.equal = FALSE,alternative="two.sided")
+
+plotmeans(Income~Version,data=xpapp2,xlab='实验版本',ylab='单UV收入',col='red',
+          main='95%的置信区间图')
+
+boxplot(Income~Version,data=xpapp2)
+##把数据从宽边长
+
+ggplot(data=xpapp2,aes(x=Version,y=Income,fill=Version))+geom_boxplot()+
+  xlab('实验版本')+ylab('单UV收入')+ggtitle('对照组与实验组箱形图')
+
+ggplot(xpapp2,aes(x=d,y=Income,colour=Version))+geom_line()
+
+```
+
