@@ -1,0 +1,15 @@
+.VolumnIcon.icns
+.Trashes
+.TemporaryItems
+.Spotlight-v100
+# Directories potentially created on remote AFP share 
+.AppleDB
+.APPleDesktop 
+Network trash Items 
+.apdisk 
+
+#R related files that don't need version control 
+.Rproj.user
+.Rhistory
+.RData
+.Ruserdata
